@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        
+        <!-- Create List -->
+        <form id="createListForm">
+            <input type="text" id="listNameInput" placeholder="Enter list name" required>
+            <button type="submit">Create List</button>
+        </form>
+
+        <!-- List Summaries -->
+        <h2>All Lists</h2>
+        <ul id="listSummaries"></ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mock data for initial rendering
+        const lists = [
+            { id: 1, name: "Shopping" },
+            { id: 2, name: "Work" }
+        ];
+
+        // Function to render list summaries
+        function renderListSummaries() {
+            const listSummaries = document.getElementById('listSummaries');
+            listSummaries.innerHTML = '';
+
+            lists.forEach(list => {
+                const listItem = document.createElement('li');
+                listItem.textContent = list.name;
+                listSummaries.appendChild(listItem);
+            });
+        }
+
+        // Event listener for form submission to create a list
+        document.getElementById('createListForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const listName = document.getElementById('listNameInput').value;
+            if (listName.trim() !== '') {
+                const newList = { id: lists.length + 1, name: listName };
+                lists.push(newList);
+                renderListSummaries();
+                document.getElementById('listNameInput').value = '';
+            }
+        });
+
+        // Initial rendering
+        renderListSummaries();
+    </script>
+</body>
+</html>
