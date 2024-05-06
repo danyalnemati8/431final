@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="list-name"></h1>
+        
+        <form id="addEntryForm">
+            <input type="text" id="entryNameInput" placeholder="Enter entry name" required>
+            <button type="submit">Create Entry</button>
+        </form>
+
+        <h2>All Entries</h2>
+        <ul id="entrySummaries"></ul>
+    </div>
+
+    <script>
+        const lists = [
+            { id: 1, name: "Shopping" },
+            { id: 2, name: "Work" }
+        ];
+
+        function renderListSummaries() {
+            const listSummaries = document.getElementById('entrySummaries');
+            listSummaries.innerHTML = '';
+
+            lists.forEach(list => {
+                const listItem = document.createElement('li');
+                listItem.textContent = list.name;
+                listSummaries.appendChild(listItem);
+            });
+        }
+
+        document.getElementById('addEntryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const listName = document.getElementById('entryNameInput').value;
+            if (listName.trim() !== '') {
+                const newList = { id: lists.length + 1, name: listName };
+                lists.push(newList);
+                renderListSummaries();
+                document.getElementById('entryNameInput').value = '';
+            }
+        });
+
+        renderListSummaries();
+    </script>
+</body>
+</html>
