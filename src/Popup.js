@@ -2,7 +2,7 @@ import React from 'react';
 import { RxCross1 } from "react-icons/rx";
 import './Popup.css';
 
-const Popup = ({ title, input, onClose }) => {
+const Popup = ({ title, input, buttonFunction, onClose }) => {
     return (
         <div className="popup-container">
             <div className="popup flex flex-col justify-center items-end h-[50%] w-[50%] p-5">
@@ -15,7 +15,7 @@ const Popup = ({ title, input, onClose }) => {
                     <input type='text'></input>
                     </div>)
                     :<div></div>}
-                    <button className='bg-green-500 text-white rounded-xl p-3 hover:text-green-500 hover:bg-white border-green-500 border-solid border-2' onClick={onClose}>Create</button>
+                    <button className='bg-black text-white rounded-xl p-3 hover:text-black hover:bg-white border-black border-solid border-2 transition-colors duration-300' onClick={onClose}>{buttonFunction}</button>
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@ function App() {
       <div className="h-3/4 w-5/6 bg-slate-500 rounded-2xl flex flex-col items-center justify-start">
         <div className="h-[5%] w-full flex justify-end">
           <CiSquarePlus onClick={openPopup} className="m-2 text-green-400 text-3xl cursor-pointer"/>
-          {isPopupOpen && <Popup title={"Create List"} input={["List Name"]} onClose={closePopup} />}
+          {isPopupOpen && <Popup title={"Create List"} input={["List Name"]} onClose={closePopup} buttonFunction={"Create"}/>}
         </div>
         <div className='h-[95%] w-full flex items-center justify-start'>
           <List/>
