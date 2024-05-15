@@ -1,5 +1,33 @@
-[
-    { "id": 1, "name": "Task 1" },
-    { "id": 2, "name": "Task 2" },
-    { "id": 3, "name": "Task 3" }
-]
+{
+    "lists": [
+      {
+        "id": "1",
+        "name": "Groceries",
+        "items": [
+          {
+            "id": "1-1",
+            "name": "Milk"
+          },
+          {
+            "id": "1-2",
+            "name": "Eggs"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Work",
+        "items": [
+          {
+            "id": "2-1",
+            "name": "Finish report"
+          },
+          {
+            "id": "2-2",
+            "name": "Email client"
+          }
+        ]
+      }
+    ]
+  }
+  
