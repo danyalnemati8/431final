@@ -1,37 +1,6 @@
 {
     "lists": [
-      {
-        "id": "1",
-        "name": "Groceries",
-        "items": [
-          {
-            "id": "1-1",
-            "name": "Milk",
-            "checked": false
-          },
-          {
-            "id": "1-2",
-            "name": "Eggs",
-            "checked": true
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "name": "Work",
-        "items": [
-          {
-            "id": "2-1",
-            "name": "Finish report",
-            "checked": false
-          },
-          {
-            "id": "2-2",
-            "name": "Email client",
-            "checked": false
-          }
-        ]
-      }
+      
     ]
   }
   

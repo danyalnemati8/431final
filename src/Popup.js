@@ -3,15 +3,15 @@ import { useRef } from 'react';
 import { RxCross1 } from "react-icons/rx";
 import './Popup.css';
 
-const Popup = ({ title, input, buttonFunction, onClose,  onClick }) => {
-    const refs = useRef({})
+const Popup = ({ title, input, buttonFunction, onClose,  onClick, id }) => {
+    const refs = useRef({});
 
     const handleClick = () => {
-        const values = {}
+        const values = {};
         for(let key in refs.current) {
-            values[key] = refs.current[key].value
+            values[key] = refs.current[key].value;
         }
-        onClick(values);
+        onClick(values, id);
         onClose();
     }
 
