@@ -3,9 +3,33 @@ import { CiSquarePlus } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import Popup from "./Popup";
 
-const List = ({list, onDelete, onAdd, onDeleteItem, onChangeChecked}) => {
+const List = ({list, onDelete, onAdd, onDeleteItem, onChangeChecked, onEdit}) => {
     const [deletePopupOpen, setDeletePopupOpen] = useState(false);
     const [addPopupOpen, setAddPopupOpen] = useState(false);
+    const [editPopupOpen, setEditPopupOpen] = useState(false)
+    const [items, setItems] = useState(list.items);
+
+    function compare( a, b ) {
+        if (a.checked && !(b.checked)) {
+            return -1;
+        }
+        if (b.checked && !(a.checked)) {
+            return 1;
+        }
+        if ( a.created < b.created ){
+          return -1;
+        }
+        if ( a.created > b.created ){
+          return 1;
+        }
+        return 0;
+      }
+
+    useEffect(() => {
+        list.items.sort(compare);
+        console.log(list.items);
+        setItems(list.items);
+    }, [list.items])
 
     const openDeletePopup = () => {
         setDeletePopupOpen(true);
@@ -21,20 +45,29 @@ const List = ({list, onDelete, onAdd, onDeleteItem, onChangeChecked}) => {
         setAddPopupOpen(false);
     };
 
+    const openEditPopup = () => {
+        setEditPopupOpen(true);
+    };
+
+    const closeEditPopup = () => {
+        setEditPopupOpen(false);
+    };
+
     return (
         <div className="h-[90%] w-1/5 flex flex-col justify-start items-center m-3 bg-white rounded-2xl">
             <div className="h-[10%] w-full m-1 flex items-center">
                 <CiSquarePlus onClick={openAddPopup} className="h-1/2 w-1/5 text-green-600 cursor-pointer" />
                 {addPopupOpen && <Popup title={"Add List Item"} onClose={closeAddPopup} input={["name"]} buttonFunction={"Add"} onClick={onAdd} id={list.id}/>}
-                <h2 className="h-2/3 w-3/5 text-center text-black text-xl">
+                <h2 className="h-2/3 w-3/5 text-center text-black text-xl" onClick={openEditPopup}>
                     {list.name}
                 </h2>
+                {editPopupOpen &&<Popup title={"Change List Name"} onClose={closeEditPopup} input={["name"]} buttonFunction={"Confirm"} onClick={onEdit} id={list.id}/>}
                 <RxCross1 onClick={openDeletePopup} className="h-1/2 w-1/5 text-red-600 cursor-pointer" />
                 {deletePopupOpen && <Popup title={"Confirm List Deletion"} onClose={closeDeletePopup} buttonFunction={"Confirm"} onClick={onDelete} id={list.id}/>}
             </div>
             <div className="h-[90%] w-full text-center flex flex-col justify-start items-center">
-                {list.items ?
-                list.items.map(item => <ListItem item={item} listId={list.id} onDelete={onDeleteItem} onChangeChecked={onChangeChecked}/>)
+                {items ?
+                items.map(item => <ListItem key={item.id} item={item} listId={list.id} onDelete={onDeleteItem} onChangeChecked={onChangeChecked}/>)
                 :<div></div>}
             </div>
         </div>
@@ -43,6 +76,7 @@ const List = ({list, onDelete, onAdd, onDeleteItem, onChangeChecked}) => {
 
 const ListItem = ({item, listId, onDelete, onChangeChecked}) => {
     //const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [checked, setChecked] = useState(item.checked);
 
     /*const openPopup = () => {
         setIsPopupOpen(true);
@@ -57,8 +91,9 @@ const ListItem = ({item, listId, onDelete, onChangeChecked}) => {
     }
 
     const handleCheck = ({target}) => {
-        console.log(target.checked)
-        onChangeChecked(listId, item.id, target.checked);
+        const newCheckedStatus = target.checked;
+        onChangeChecked(listId, item.id, newCheckedStatus);
+        setChecked(newCheckedStatus);
     }
 
     return (
@@ -68,7 +103,7 @@ const ListItem = ({item, listId, onDelete, onChangeChecked}) => {
             </div>
             <div className="flex flex-col justify-between items-center h-full w-1/5">
                 <RxCross1 onClick={handleDelete} className="text-red-600 cursor-pointer" />
-                <input type="checkbox" defaultChecked={item.checked} onClick={handleCheck}/>
+                <input type="checkbox" checked={checked} onClick={handleCheck}/>
             </div>
         </div>
     )
