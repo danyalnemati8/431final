@@ -4,6 +4,7 @@ $data = json_decode(file_get_contents('php://input'), true);
     
 $listId = $data['listId'];
 $itemName = $data['itemName'];
+$created = $data['created'];
 
 // Define the file path to the JSON file
 $file = 'data.json';
@@ -19,6 +20,7 @@ foreach ($lists['lists'] as &$list) {
         $newItem = [
             'id' => uniqid(),
             'name' => $itemName,
+            'created' => $created,
             'checked' => false
         ];
         $list['items'][] = $newItem;
